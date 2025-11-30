@@ -1,0 +1,500 @@
+! ######################################
+! Title: No Accounts Plox
+! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
+! Version: 2025.11.29
+! Last modified: 2025-11-29
+! Expires: 7 days
+! Homepage: https://github.com/alplox/No-Accounts-Plox
+! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
+! Issues: https://github.com/alplox/No-Accounts-Plox/issues
+! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit) and ChatGPT.
+! ######################################
+
+! ====================================================================================
+! MARK: Youtube
+! ██    ██  ██████  ██    ██ ████████ ██    ██ ██████  ███████ 
+!  ██  ██  ██    ██ ██    ██    ██    ██    ██ ██   ██ ██      
+!   ████   ██    ██ ██    ██    ██    ██    ██ ██████  █████   
+!    ██    ██    ██ ██    ██    ██    ██    ██ ██   ██ ██      
+!    ██     ██████   ██████     ██     ██████  ██████  ███████ 
+                                                             
+! Top bar -----------------------------------------------       
+! Main top-right "Sign in" button
+youtube.com##ytd-button-renderer a[href^="https://accounts.google.com/ServiceLogin"]
+! "Settings" link in the top-right menu
+youtube.com##a#endpoint[href="/account"]:upward(ytd-compact-link-renderer)
+! “Your data in YouTube” link in the top-right menu
+youtube.com##a[href*="yourdata/youtube"]:upward(ytd-compact-link-renderer)
+
+! Homepage -----------------------------------------------
+! Hides the "Save to playlist" option inside YouTube’s context menu (does not hide the menu trigger)
+youtube.com##yt-list-item-view-model:has-text(/^Save to playlist$/)
+youtube.com##yt-list-item-view-model:has-text(/^Guardar en una playlist$/)
+
+! Hides the "Send feedback" option inside YouTube’s context menu in shorts (does not hide the menu trigger)
+youtube.com##yt-list-item-view-model:has-text(/Send feedback/i)
+youtube.com##yt-list-item-view-model:has-text(/Enviar comentarios/i)
+
+! Hides YouTube's homepage feedback checkbox survey popup
+youtube.com##ytd-checkbox-survey-renderer
+
+! Sidebar -----------------------------------------------
+! privacy/feedback/help links
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Tus datos en YouTube"))
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Your YouTube data"))
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Enviar comentarios"))
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Send feedback"))
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Ayuda"))
+youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Help"))
+
+! Remove the big "Sign in to like and subscribe" promo
+youtube.com##ytd-guide-signin-promo-renderer
+
+! Remove every entry that requires login or only exists when logged in
+youtube.com##ytd-guide-entry-renderer a[href="/feed/subscriptions"]
+youtube.com##ytd-mini-guide-entry-renderer a[href="/feed/subscriptions"]
+youtube.com##ytd-guide-entry-renderer a[href="/feed/you"]
+youtube.com##ytd-mini-guide-entry-renderer a[href="/feed/you"]
+youtube.com##ytd-guide-entry-renderer a[href="/feed/history"]
+youtube.com##ytd-mini-guide-entry-renderer a[href="/feed/history"]
+youtube.com##ytd-guide-entry-renderer a[href="/premium"]
+youtube.com##ytd-guide-section-renderer:has(a[href="/account"])
+youtube.com##ytd-guide-section-renderer:has(a[href="/feed/you"])
+
+! About, Press, Copyright, Contact us, Creators, Advertise, Developers
+youtube.com###guide-links-primary
+
+! Terms, Privacy, Policy & Safety, How YouTube works, Test new features 
+youtube.com###guide-links-secondary
+
+! Footer copyright line
+youtube.com###copyright
+
+! Video page /watch -----------------------------------------------
+! Disable clicks on segmented Like/Dislike buttons, keep icons visible, avoid opening YouTube "Like this video?" sign-in modal
+youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-start { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-end { pointer-events: none !important; opacity: 0.3 !important; }
+
+! "Download", "Save to playlist", "Become a sponsor", "Subscribe" and "Join" buttons that require login
+! "Download" button
+youtube.com##button.yt-spec-button-shape-next--icon-leading[aria-label="Descargar"]
+youtube.com##button.yt-spec-button-shape-next--icon-leading[aria-label="Download"]
+youtube.com##button.yt-spec-button-shape-next--icon-leading[aria-label="Guardar en una playlist"]
+youtube.com##button.yt-spec-button-shape-next--icon-leading[aria-label="Save to playlist"]
+! "Become a sponsor" button                    
+youtube.com##div#sponsor-button         
+! "Subscribe" button             
+youtube.com##button:has-text(Suscribirse)    
+youtube.com##button:has-text(Subscribe)      
+! "Join" membership button       
+youtube.com##div.ytFlexibleActionsViewModelAction button:has-text(Unirse)
+youtube.com##div.ytFlexibleActionsViewModelAction button:has-text(Join)
+
+! Button with "More actions" aria-label and ⋮ icon
+youtube.com##yt-button-shape button[aria-label="More actions"]
+youtube.com##yt-button-shape button[aria-label="Más acciones"]
+
+! Hides the YouTube "Like this video?" sign-in modal (language-agnostic) that appears when trying to interact with certain features like "Like" or "Dislike"
+youtube.com##ytd-modal-with-title-and-button-renderer[modal]
+
+! Hides specific YouTube menu service items inside the menu popup (language-agnostic) (Report, Save, Not interested, Don’t recommend channel, etc.).
+youtube.com##tp-yt-paper-listbox#items ytd-menu-service-item-renderer
+
+! "Sign in" button on error / restricted video overlay
+youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Sign in"))
+youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Iniciar sesión"))
+
+! Hide every anchor link inside yt-button-shape that leads to Google login page, can hide like/dislike buttons too
+!youtube.com##yt-button-shape a[href*="ServiceLogin"]
+
+! Recommendations section -----------------------------------------------
+! Hides the YouTube "Download" menu item (language-agnostic)
+youtube.com##yt-download-list-item-view-model
+
+! Shorts page /shorts -----------------------------------------------
+! Disable interactions with Like button on Shorts, keep icons visible
+youtube.com##like-button-view-model button { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Disable interactions with Dislike button on Shorts, keep icons visible
+youtube.com##dislike-button-view-model button { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Disable interactions with Remix button on Shorts, keep icons visible
+youtube.com##button-view-model[aria-label="Remix"] button { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Channel page /channel/-----------------------------------------------
+! Hides the menu on channel video thumbnails that contains "Save to playlist", "Download" and other options that require login
+youtube.com##ytd-menu-renderer.style-scope.ytd-rich-grid-media
+
+! Hides the "Join" membership button on channel pages
+youtube.com##ytd-button-renderer:has-text(/Join/i)
+
+! Hides the recognition shelf (awards, milestones) on channel pages
+youtube.com##ytd-recognition-shelf-renderer
+
+! Disable clicks on like/dislike buttons in posts, keep icons visible
+youtube.com##ytd-comment-action-buttons-renderer #like-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##ytd-comment-action-buttons-renderer #dislike-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Hide the "For more details, sign in to see the full description" text in the About section of channels
+youtube.com##.ytd-about-channel-renderer tr.description-item:has(a[href*="ServiceLogin"])
+
+! Hide menu on video thumbnails in channel pages
+youtube.com##ytd-grid-video-renderer ytd-menu-renderer
+youtube.com##ytd-rich-item-renderer ytd-menu-renderer
+
+! Comments section -----------------------------------------------
+! Hides the YouTube comment input box that prompts users to sign in (language-agnostic)
+youtube.com##ytd-comment-simplebox-renderer
+
+! Hides the YouTube "Like" button in comment sections (language-agnostic)
+!youtube.com##ytd-toggle-button-renderer#like-button
+
+! Hides the YouTube "Dislike" button in comment sections (language-agnostic)
+!youtube.com##ytd-toggle-button-renderer#dislike-button
+
+! Hides the YouTube "Reply" button in comment sections (language-agnostic)
+youtube.com##ytd-button-renderer#reply-button-end
+
+! Disable clicks on like/dislike buttons, keep icons visible
+youtube.com##ytd-toggle-button-renderer#like-button > yt-button-shape > button { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##ytd-toggle-button-renderer#dislike-button > yt-button-shape > button { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Hide Mixes (Optional, just personal preference) -----------------------------------------------
+! Remove the entire recommendation card when it is a Mix (badge or title)
+! Removing the parent `ytd-rich-item-renderer` avoids leaving empty gaps.
+youtube.com##ytd-rich-item-renderer:has-text(/Mix/i)
+youtube.com##ytd-rich-item-renderer:has(.yt-badge-shape__text:has-text(/Mix/i))
+
+! Fallback: target badge elements and propagate upward to the rich item container
+youtube.com##yt-thumbnail-badge-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
+youtube.com##yt-badge-shape:has(.yt-badge-shape__text:has-text(/Mix/i)):upward(ytd-rich-item-renderer)
+
+! Catch lockups and secondary results where the title or link implies a Mix
+youtube.com##ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
+youtube.com##yt-lockup-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
+
+! Aggressive: remove mix playlists by URL (removes the containing card)
+youtube.com##a[href*="list=RD"]:upward(ytd-rich-item-renderer)
+
+! Also remove any rich item whose anchor contains a mix playlist reference
+youtube.com##ytd-rich-item-renderer:has(a[href*="list=RD"])
+
+! Detect mixes by radio/start params in the link (example seen in your DOM)
+! Some Mix cards don't show a "Mix" badge text but include `start_radio` in the URL.
+youtube.com##a[href*="start_radio="]:upward(ytd-rich-item-renderer)
+youtube.com##ytd-rich-item-renderer:has(a[href*="start_radio="])
+
+! Extra fallbacks for alternative container types used in sidebars / compact layouts
+youtube.com##a[href*="list=RD"]:upward(yt-lockup-view-model)
+youtube.com##a[href*="list=RD"]:upward(ytd-compact-video-renderer)
+youtube.com##a[href*="start_radio="]:upward(yt-lockup-view-model)
+
+!  End of filters for YouTube
+! ====================================================================================
+
+
+! ====================================================================================
+! MARK: TikTok
+! ████████ ██ ██   ██ ████████  ██████  ██   ██ 
+!    ██    ██ ██  ██     ██    ██    ██ ██  ██  
+!    ██    ██ █████      ██    ██    ██ █████   
+!    ██    ██ ██  ██     ██    ██    ██ ██  ██  
+!    ██    ██ ██   ██    ██     ██████  ██   ██ 
+                                              
+! Hide keyboard shortcut popup at the bottom
+tiktok.com##div[class^="css-"][class*="--DivFixedBottomContainer"]
+
+! Hide login modals/popups
+tiktok.com##div[class^="css-"][class*="--DivModalContainer"]
+tiktok.com##div#login-modal
+
+! Allow scrolling when body is hidden (to bypass login in scroll lock)
+tiktok.com##body.hidden { overflow: initial !important; display: initial !imimportant; }
+
+! Restore pointer events to "non-clickable" links, like recommendations
+tiktok.com##a[class^="css-"][class*="--LinkNonClickable"] { pointer-events: auto !important; }
+
+! Hide top-right action bar with "Get Coins", "Get App" and "Login in" buttons
+tiktok.com##div#top-right-action-bar
+
+! Profile page -----------------------------------------------
+! Set maximum width of user profile links to none, so the full link is visible
+tiktok.com##div[class*="--DivShareLinks"] a[data-e2e="user-link"] { max-width: none !important; }
+
+! Hide the "Follow", "Message", "Share", "More", etc. block
+tiktok.com##div[class*="--DivButtonPanelWrapper"]
+
+! Message "Posts that some may find uncomfortable are unavailable. Log in to make the most of your TikTok experience" that prompts to log in
+tiktok.com##div[class^="css-"][class*="--DivContainer"] > div[class*="--DivTextContent"]:upward(div[class^="css-"][class*="--DivContainer"])
+
+! Sidebar -----------------------------------------------
+! Button “Following”
+tiktok.com##a[data-e2e="nav-following"]
+
+! Button “Upload”
+tiktok.com##a[data-e2e="nav-upload"]
+
+! Button “Profile”
+tiktok.com##a[data-e2e="nav-profile"]
+
+! Button “More”
+tiktok.com##button[data-e2e="nav-more-menu"]
+
+! Button “Login in”
+tiktok.com##div[class*="--SubMainNavContentContainer"] > button#header-login-button
+
+! Footer links (About, Newsroom, Contact, Careers, ByteDance, TikTok for Good, Advertise, Developers, Transparency, Help, Safety, Terms, Privacy, Creator Portal, Community Guidelines, Copyright)
+tiktok.com##div[class*="--SubMainNavFooterContainer"]
+
+! Feed -----------------------------------------------
+! Follow buttons over profile pics
+tiktok.com##button[data-e2e="feed-follow"]
+
+! Hide the content block that prompts users to log in to comment
+tiktok.com##div[class*="--DivCommentBarContainer"]
+
+! "Reply" button in video comments
+tiktok.com##span[data-e2e="comment-reply-1"]
+
+! Follow button beside username in /video/ pages (with tabs; the one that shows "Comments" & "Creator videos")
+tiktok.com##div[data-e2e="browse-follow"]
+
+! Log in to comment bar below comments section in /video/ pages (with tabs; the one that shows "Comments" & "Creator videos")
+tiktok.com##div[class*="--DivBottomCommentContainer"] > div[class*="--DivLoginBar"]:upward(div[class^="css-"][class*="--DivBottomCommentContainer"])
+
+! Follow button beside username in /video/ pages (without tabs; the one that only shows "You may like")
+tiktok.com##button[data-e2e="browse-follow"]
+
+! Live page -----------------------------------------------
+! Hide "Go LIVE" button
+tiktok.com##button:has(.TUXButton-label:has-text(Go LIVE))
+tiktok.com##button:has(.TUXButton-label:has-text(Ir en vivo))
+
+! Hide "Creator tools" button
+tiktok.com##button:has(.TUXButton-label:has-text(Creator tools))
+tiktok.com##button:has(.TUXButton-label:has-text(Herramientas para creadores))
+
+! Hide "Log in" button
+tiktok.com##button:has(.TUXButton-label:has-text(Log in))
+tiktok.com##button:has(.TUXButton-label:has-text(Iniciar sesión))
+
+! Hide "Log in" button under alert "This LIVE contains themes that some may find uncomfortable. Log in to make the most of your TikTok experience."
+tiktok.com##div.live-room-container button:has-text(Log in)
+tiktok.com##div.live-room-container button:has-text(Iniciar sesión)
+
+! Hide comment input box
+tiktok.com##div.flex.items-center.justify-between.p-8
+
+!  End of filters for TikTok
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: Reddit (Reddit.com)
+! ██████  ███████ ██████  ██████  ██ ████████ 
+! ██   ██ ██      ██   ██ ██   ██ ██    ██    
+! ██████  █████   ██   ██ ██   ██ ██    ██    
+! ██   ██ ██      ██   ██ ██   ██ ██    ██    
+! ██   ██ ███████ ██████  ██████  ██    ██    
+                                            
+! Hide the login/register popup in the top-right
+reddit.com##div#credential_picker_container
+
+! Hide the entire legal links footer block in the right-bottom corner
+reddit.com##div.legal-links
+
+! Hide the Reddit Inc. copyright link in the footer left-bottom corner
+reddit.com##a[href="https://redditinc.com"]
+
+! Remove the blur filter from post thumbnails NSFW overlay
+reddit.com##faceplate-img.thumbnail-blur { filter: none !important; }
+
+! Navigation bar -----------------------------------------------
+! Hide login element
+reddit.com##faceplate-tracker a#login-button:upward(faceplate-tracker)
+
+! Hide app promotion
+reddit.com##faceplate-tracker[source="xpromo"]
+
+! Hide the Reddit tooltip container for the user drawer menu with "Log In", "Advertise in reddit" and "Try Reddit Pro" buttons
+reddit.com##rpl-tooltip:has(#expand-user-drawer-button)
+
+! Community page -----------------------------------------------
+! Community join button
+reddit.com##shreddit-join-button
+
+! Hide award button that prompts to log in, for both posts and comments
+reddit.com##award-button
+
+! Hide the "Create Post" button that prompts to log in
+reddit.com##create-post-entry-point-wrapper
+
+! Sidebar -----------------------------------------------
+! Hide "About Reddit"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="about_reddit_menu"]
+! Hide "Advertise"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="advertise_menu"]
+! Hide "Develpment Platform"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="developer_platform_menu"]
+! Hide "Reddit Pro"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="reddit_pro_menu"]
+! Hide "Help Center"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="help_menu"]
+! Hide "Blog"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="blog_menu"]
+! Hide "Careers"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="careers_menu"]
+! Hide "Press"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="press_menu"]
+! Hide "Reddit Rules"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="content_policy_menu"]
+! Hide "Privacy Policy"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="privacy_policy_menu"]
+! Hide "User Agreement"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="user_agreement_menu"]
+! Hide "Accessibility"
+reddit.com##faceplate-tracker[source="nav"][action="click"][noun="accessibility_menu"]
+
+! Post page -----------------------------------------------
+! Hide overflow menu (three-dots menu) in Reddit post
+reddit.com##shreddit-post-overflow-menu
+
+! Hide comment input box that prompts to log in
+reddit.com##faceplate-textarea-input
+
+! Disable interaction with Reddit upvote/downvote buttons while keeping them visible, for both posts and comments
+reddit.com##button[upvote] { pointer-events: none !important; opacity: 0.3 !important; }
+reddit.com##button[downvote] { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Hide reply button inside Reddit comment action row
+reddit.com##shreddit-comment-action-row faceplate-tracker[slot="comment-reply"]
+
+! Hide overflow menu (three-dots menu) in Reddit comment action row
+reddit.com##shreddit-comment-action-row shreddit-overflow-menu
+
+! Hide the "Share as post" option from the Reddit share menu but keep the share button visible
+reddit.com##li.share-menu-crosspost-option
+
+! Profile page -----------------------------------------------
+! Hide the user profile dropdown menu that prompts to log in
+reddit.com##faceplate-dropdown-menu.connected
+
+! Hide the "Adult Content" modal that prompts to log in
+reddit.com##faceplate-modal#blocking-modal
+
+! Restore pointer events and scrolling to the body when Reddit disables them to force login
+reddit.com##body:style(pointer-events: auto !important; overflow: auto !important;)
+
+! Hide the blurred backdrop that appears when the "Adult Content" modal is shown
+reddit.com##div[style*="position: fixed"][style*="backdrop-filter: blur"]
+
+! Hide the NSFW QR code dialog that prompts to log in
+reddit.com##faceplate-dialog#nsfw-qr-dialog
+
+!  End of filters for Reddit (Reddit.com)
+! ====================================================================================
+
+
+! ====================================================================================
+! MARK: Old Reddit (old.reddit.com)
+!  ██████  ██      ██████      ██████  ███████ ██████  ██████  ██ ████████ 
+! ██    ██ ██      ██   ██     ██   ██ ██      ██   ██ ██   ██ ██    ██    
+! ██    ██ ██      ██   ██     ██████  █████   ██   ██ ██   ██ ██    ██    
+! ██    ██ ██      ██   ██     ██   ██ ██      ██   ██ ██   ██ ██    ██    
+!  ██████  ███████ ██████      ██   ██ ███████ ██████  ██████  ██    ██    
+                                                                         
+! Hide the top signup infobar that prompts to log in or register
+old.reddit.com##.infobar.listingsignupbar
+
+! Hide the "Want to join? Log in or registrate in seconds." in the banner
+old.reddit.com##div#header-bottom-right
+
+! Disable interaction with Reddit upvote/downvote buttons while keeping them visible, for both posts and comments
+old.reddit.com##div.midcol.unvoted .arrow.up.login-required.access-required { pointer-events: none !important; opacity: 0.3 !important; }
+old.reddit.com##div.midcol.unvoted .arrow.down.login-required.access-required { pointer-events: none !important; opacity: 0.3 !important; }
+
+! Hide the entire footer block (about, help center, apps & tools, reddit premium)
+old.reddit.com##div.footer-parent
+
+! Post page -----------------------------------------------
+! Hide the "Save" button that prompts to log in
+old.reddit.com##li.link-save-button.save-button.login-required
+
+! Hide the "Hide" button that prompts to log in
+old.reddit.com##form.hide-button
+
+! Hide the "Report" button that prompts to log in
+old.reddit.com##li.report-button.login-required
+
+! Hide the "Want to join the discussion? Log in or sign up now!" comment box that prompts to log in
+old.reddit.com##section.infobar.commentsignupbar
+
+! Hide the "Embed" button in comments that prompts to log in
+old.reddit.com##li a[data-media="www.redditmedia.com"].embed-comment:upward(li)
+
+! Hide the "Save" button in comments that prompts to log in
+old.reddit.com##li.comment-save-button.login-required
+
+! Hide the "Reply" button in comments that prompts to log in
+old.reddit.com##li.reply-button.login-required
+
+! Hide the "Contact Mods" button in the subreddit sidebar that prompts to log in
+old.reddit.com##div.sidecontentbox a[href*="/message/compose/?to=/r/"]:upward(div.sidecontentbox)
+
+! Sidebar  -----------------------------------------------
+! Hide "Send a link/post" buttons that prompts to log in
+old.reddit.com##div.spacer a[data-event-action="submit"]:upward(div.spacer)
+
+! Hide the "Reddit Premium" banner in the sidebar
+old.reddit.com##div.spacer a[href="/premium"]:upward(div.spacer)
+
+! Hide the "join" button in the subreddit sidebar
+old.reddit.com##span.subscribe-button
+
+!  End of filters for Old Reddit (old.reddit.com)
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: ChatGPT
+!  ██████ ██   ██  █████  ████████  ██████  ██████  ████████ 
+! ██      ██   ██ ██   ██    ██    ██       ██   ██    ██    
+! ██      ███████ ███████    ██    ██   ███ ██████     ██    
+! ██      ██   ██ ██   ██    ██    ██    ██ ██         ██    
+!  ██████ ██   ██ ██   ██    ██     ██████  ██         ██    
+                                                           
+! Hide sign up/login in modals
+chatgpt.com##div[data-testid="modal-no-auth-rate-limit"]
+
+! Hide bottom disclaimer about terms of service and privacy policy
+chatgpt.com##div.text-token-text-secondary span a[href="https://openai.com/terms"]:upward(div.text-token-text-secondary)
+
+! Hide "You're now using our basic model" popup
+chatgpt.com##aside.rounded-3xl.border.py-4.ps-5.pe-3.shadow-xxs.bg-token-main-surface-primary
+
+! Navigation bar -----------------------------------------------
+! Hide model switcher dropdown button
+chatgpt.com##button[data-testid="model-switcher-dropdown-button"]
+
+! Hide "Login" button
+chatgpt.com##button[data-testid="login-button"]
+
+! Hide "Sign up" button
+chatgpt.com##button[data-testid="signup-button"]
+
+! Hide "View plans and pricing", "Help Center", "Release Notes", "Terms & Policies" menu items
+chatgpt.com##a.__menu-item[target="_blank"]
+! Hide separator lines between menu items
+chatgpt.com##div[role="separator"]
+
+! Message input area -----------------------------------------------
+! Hide the "Connect apps" and "Documents" menu item (login-gated) without relying on text or language
+chatgpt.com##div[role="menuitem"] span.text-token-text-secondary:upward(div[role="menuitem"])
+
+! Hide the "Login to upload files" tooltip
+chatgpt.com##div[data-radix-popper-content-wrapper] div[data-state="open"] div.text-token-text-primary:upward(div[data-radix-popper-content-wrapper])
+
+!  End of filters for ChatGPT
+! ====================================================================================
