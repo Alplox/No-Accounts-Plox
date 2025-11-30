@@ -135,6 +135,9 @@ youtube.com##ytd-recognition-shelf-renderer
 youtube.com##ytd-comment-action-buttons-renderer #like-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
 youtube.com##ytd-comment-action-buttons-renderer #dislike-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
 
+! Disable clicks on polls in posts, keeping options visible
+youtube.com##a#sign-in[role="option"].ytd-backstage-poll-renderer { pointer-events: none !important; opacity: 0.3 !important; }
+
 ! Hide the "For more details, sign in to see the full description" text in the About section of channels
 youtube.com##.ytd-about-channel-renderer tr.description-item:has(a[href*="ServiceLogin"])
 
