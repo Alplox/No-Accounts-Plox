@@ -3,7 +3,7 @@
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
 ! Version: 2025.11.30
 ! Last modified: 2025-11-30
-! Expires: 7 days
+! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
 ! Issues: https://github.com/alplox/No-Accounts-Plox/issues
