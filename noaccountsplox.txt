@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2025.11.29
-! Last modified: 2025-11-29
+! Version: 2025.11.30
+! Last modified: 2025-11-30
 ! Expires: 7 days
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -110,6 +110,10 @@ youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Inici
 ! Recommendations section -----------------------------------------------
 ! Hides the YouTube "Download" menu item (language-agnostic)
 youtube.com##yt-download-list-item-view-model
+
+! Hide the "Add to watch later" button on video thumbnails in the recommendations sidebar
+youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnailHoverOverlayToggleActionsViewModelButton button[aria-label="Watch later"]
+youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnailHoverOverlayToggleActionsViewModelButton button[aria-label="Ver más tarde"]
 
 ! Shorts page /shorts -----------------------------------------------
 ! Disable interactions with Like button on Shorts, keep icons visible
@@ -469,7 +473,24 @@ old.reddit.com##span.subscribe-button
 !  ██████ ██   ██ ██   ██    ██     ██████  ██         ██    
                                                            
 ! Hide sign up/login in modals
-chatgpt.com##div[data-testid="modal-no-auth-rate-limit"]
+chatgpt.com##[data-testid="modal-no-auth-rate-limit"]
+
+! Hide gpt-5 upsell modal
+chatgpt.com##[data-testid="modal-no-auth-gpt5-upsell"]
+
+! Remove "data-scroll-locked" attribute dynamically to re-enable scrolling after hiding modals
+chatgpt.com##body[data-scroll-locked]:remove-attr(data-scroll-locked)
+
+! Force-enable scrolling on body and html elements
+chatgpt.com##body:style(pointer-events: auto !important; overflow-y: auto !important)
+chatgpt.com##html:style(overflow: auto !important)
+
+! Remove "data-scroll-locked" attribute from body to re-enable scrolling
+chatgpt.com##+js(remove-attr, body, data-scroll-locked)
+
+! AddEventListener Defuser to block wheel event listeners that disable scrolling
+! https://github.com/gorhill/uBlock/wiki/Resources-Library#addeventlistener-defuserjs-
+chatgpt.com##+js(aeld, wheel)
 
 ! Hide bottom disclaimer about terms of service and privacy policy
 chatgpt.com##div.text-token-text-secondary span a[href="https://openai.com/terms"]:upward(div.text-token-text-secondary)
