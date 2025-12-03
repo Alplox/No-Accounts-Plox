@@ -71,6 +71,12 @@ youtube.com###guide-links-secondary
 youtube.com###copyright
 
 ! Video page /watch -----------------------------------------------
+! Increase the maximum height of the video player when in fullscreen mode
+youtube.com##:fullscreen #player-full-bleed-container, :fullscreen #full-bleed-container { max-height: calc(100vh) !important; }
+
+! Increase the maximum height of the video player when in theater mode to use full viewport height minus top bar
+youtube.com##:has([is-theater-mode]) #player-full-bleed-container, :has([is-theater-mode]) #full-bleed-container { max-height: calc(100vh - 52px) !important; height: 100vh !important; }
+
 ! Disable clicks on segmented Like/Dislike buttons, keep icons visible, avoid opening YouTube "Like this video?" sign-in modal
 youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-start { pointer-events: none !important; opacity: 0.3 !important; }
 youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-end { pointer-events: none !important; opacity: 0.3 !important; }
