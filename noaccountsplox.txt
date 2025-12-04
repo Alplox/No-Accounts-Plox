@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2025.12.03
-! Last modified: 2025-12-03
+! Version: 2025.12.04
+! Last modified: 2025-12-04
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -25,13 +25,19 @@ youtube.com##ytd-button-renderer a[href^="https://accounts.google.com/ServiceLog
 youtube.com##a#endpoint[href="/account"]:upward(ytd-compact-link-renderer)
 ! “Your data in YouTube” link in the top-right menu
 youtube.com##a[href*="yourdata/youtube"]:upward(ytd-compact-link-renderer)
+! Removes bottom borders between menu items in the top-right menu (So after removing some items, there are no borders left/visible lines)
+youtube.com###sections.ytd-multi-page-menu-renderer > .ytd-multi-page-menu-renderer:not(:last-child):style(border-bottom: none !important;)
+! Ajust padding above the first menu item in the top-right menu
+youtube.com###sections.ytd-multi-page-menu-renderer > .ytd-multi-page-menu-renderer:not(ytd-comment-video-thumbnail-header-renderer):style(padding: 8px 0 0 0 !important;)
+! Removes padding on the last menu item in the top-right menu
+youtube.com##ytd-multi-page-menu-renderer #sections.ytd-multi-page-menu-renderer > yt-multi-page-menu-section-renderer:last-child:style(padding: 0 !important;)
 
 ! Homepage -----------------------------------------------
-! Hides the "Save to playlist" option inside YouTube’s context menu (does not hide the menu trigger)
+! Hides the "Save to playlist" option inside YouTube’s context menu (does not hide the menu trigger/Three-dots button)
 youtube.com##yt-list-item-view-model:has-text(/^Save to playlist$/)
 youtube.com##yt-list-item-view-model:has-text(/^Guardar en una playlist$/)
 
-! Hides the "Send feedback" option inside YouTube’s context menu in shorts (does not hide the menu trigger)
+! Hides the "Send feedback" option inside YouTube’s context menu in shorts (does not hide the menu trigger/Three-dots button)
 youtube.com##yt-list-item-view-model:has-text(/Send feedback/i)
 youtube.com##yt-list-item-view-model:has-text(/Enviar comentarios/i)
 
@@ -125,6 +131,9 @@ youtube.com##yt-live-chat-banner-manager
 ! Hides the footer login prompt in the YouTube live chat engagement panels "Log in to chat. All messages you send will be public"
 youtube.com##ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"] #footer
 
+! Hide the "try youtube kids" banner besides the video description
+youtube.com##div#teaser-carousel
+
 ! Recommendations section -----------------------------------------------
 ! Hides the YouTube "Download" menu item (language-agnostic)
 youtube.com##yt-download-list-item-view-model
@@ -150,7 +159,7 @@ youtube.com##ytd-menu-renderer.style-scope.ytd-rich-grid-media
 ! Hides the "Join" membership button on channel pages
 youtube.com##ytd-button-renderer:has-text(/Join/i)
 
-! Hides the recognition shelf (awards, milestones) on channel pages
+! Hides the recognition shelf (awards, milestones, members) on channel pages
 youtube.com##ytd-recognition-shelf-renderer
 
 ! Disable clicks on like/dislike buttons in posts, keep icons visible
@@ -160,12 +169,25 @@ youtube.com##ytd-comment-action-buttons-renderer #dislike-button yt-button-shape
 ! Disable clicks on polls in posts, keeping options visible
 youtube.com##a#sign-in[role="option"].ytd-backstage-poll-renderer { pointer-events: none !important; opacity: 0.3 !important; }
 
+! Hide the top-right menu button (three-dots) in video posts
+youtube.com###title-wrapper > div#menu
+
 ! Hide the "For more details, sign in to see the full description" text in the About section of channels
 youtube.com##.ytd-about-channel-renderer tr.description-item:has(a[href*="ServiceLogin"])
 
-! Hide menu on video thumbnails in channel pages
+! Hide menu (three-dots) on video thumbnails in channel pages
 youtube.com##ytd-grid-video-renderer ytd-menu-renderer
 youtube.com##ytd-rich-item-renderer ytd-menu-renderer
+
+! Hides the "watch later" overlay button on video thumbnails in channel pages
+youtube.com##ytd-thumbnail-overlay-toggle-button-renderer svg path[d^="M12 1C5.925"]:upward(ytd-thumbnail-overlay-toggle-button-renderer)
+
+! Playlist page /playlist/ -----------------------------------------------
+! Hides the "Add to playlist" overlay button on video thumbnails in channel playlists
+youtube.com##ytd-playlist-video-renderer svg path[d^="M12 4a2 2"]:upward(yt-icon-button)
+
+! Hides the "Add to playlist" button under playlists titles
+youtube.com##svg path[d^="M19 2H5a2 2"]:upward(.ytFlexibleActionsViewModelAction)
 
 ! Comments section -----------------------------------------------
 ! Hides the YouTube comment input box that prompts users to sign in (language-agnostic)
@@ -325,6 +347,9 @@ tiktok.com##div.flex.items-center.justify-between.p-8
                                             
 ! Hide the login/register popup in the top-right
 reddit.com##div#credential_picker_container
+
+! Hide the "Get the app" button in the top-right
+reddit.com##activate-feature button#get-app
 
 ! Hide the entire legal links footer block in the right-bottom corner
 reddit.com##div.legal-links
