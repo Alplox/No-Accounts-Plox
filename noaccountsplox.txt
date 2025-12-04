@@ -121,6 +121,7 @@ youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Inici
 
 ! Hide polls on top of chat in live streams
 youtube.com##ytd-backstage-poll-renderer
+youtube.com##yt-live-chat-poll-renderer
 
 ! Hide youTube live streams chat engagement message "Welcome to live chat! Remember to protect your privacy and follow our Community Guidelines."
 youtube.com##yt-live-chat-viewer-engagement-message-renderer
