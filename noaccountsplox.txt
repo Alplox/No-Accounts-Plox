@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2025.12.02
-! Last modified: 2025-12-02
+! Version: 2025.12.03
+! Last modified: 2025-12-03
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -112,6 +112,18 @@ youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Inici
 
 ! Hide every anchor link inside yt-button-shape that leads to Google login page, can hide like/dislike buttons too
 !youtube.com##yt-button-shape a[href*="ServiceLogin"]
+
+! Hide polls on top of chat in live streams
+youtube.com##ytd-backstage-poll-renderer
+
+! Hide youTube live streams chat engagement message "Welcome to live chat! Remember to protect your privacy and follow our Community Guidelines."
+youtube.com##yt-live-chat-viewer-engagement-message-renderer
+
+! Hide YouTube live streams chat banners like "Chat is paused", "You are viewing a replay", "This chat is for subscribers only", etc.
+youtube.com##yt-live-chat-banner-manager
+
+! Hides the footer login prompt in the YouTube live chat engagement panels "Log in to chat. All messages you send will be public"
+youtube.com##ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"] #footer
 
 ! Recommendations section -----------------------------------------------
 ! Hides the YouTube "Download" menu item (language-agnostic)
