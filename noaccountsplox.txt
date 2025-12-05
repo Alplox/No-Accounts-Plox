@@ -44,6 +44,17 @@ youtube.com##yt-list-item-view-model:has-text(/Enviar comentarios/i)
 ! Hides YouTube's homepage feedback checkbox survey popup
 youtube.com##ytd-checkbox-survey-renderer
 
+! Search page /results -----------------------------------------------
+! YT Search - keep only videos (no shorts), channels and playlists
+youtube.com##ytd-search ytd-item-section-renderer>#contents>:is(:not(ytd-video-renderer,ytd-channel-renderer,ytd-playlist-renderer,yt-lockup-view-model,yt-showing-results-for-renderer,[icon-name="promo-full-height:EMPTY_SEARCH"]),ytd-video-renderer:has([aria-label="Shorts"])),ytd-secondary-search-container-renderer
+
+! Shorts -----------------------------------------------
+! YT Homepage and Subscriptions (Grid View) - Hide the Shorts section
+youtube.com##[is-shorts]
+
+! YT Search, Channels, Subscriptions (List View) and Sidebar/Below Player Recommendations - Hide the Shorts sections
+youtube.com##ytd-reel-shelf-renderer
+
 ! Sidebar -----------------------------------------------
 ! privacy/feedback/help links
 youtube.com##ytd-compact-link-renderer:has(yt-formatted-string#label:has-text("Tus datos en YouTube"))
@@ -150,6 +161,9 @@ youtube.com##yt-download-list-item-view-model
 youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnailHoverOverlayToggleActionsViewModelButton button[aria-label="Watch later"]
 youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnailHoverOverlayToggleActionsViewModelButton button[aria-label="Ver más tarde"]
 
+! Hide Movie/Film recommendations https://www.reddit.com/r/uBlockOrigin/comments/lelvy6/comment/h76l9hg/
+youtube.com##ytd-compact-movie-renderer
+
 ! Shorts page /shorts -----------------------------------------------
 ! Disable interactions with Like button on Shorts, keep icons visible
 youtube.com##like-button-view-model button:style(pointer-events: none !important; opacity: 0.3 !important)
@@ -215,34 +229,18 @@ youtube.com##ytd-toggle-button-renderer#like-button > yt-button-shape > button:s
 youtube.com##ytd-toggle-button-renderer#dislike-button > yt-button-shape > button:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Hide Mixes (Optional, just personal preference) -----------------------------------------------
-! Remove the entire recommendation card when it is a Mix (badge or title)
-! Removing the parent `ytd-rich-item-renderer` avoids leaving empty gaps.
-youtube.com##ytd-rich-item-renderer:has-text(/Mix/i)
-youtube.com##ytd-rich-item-renderer:has(.yt-badge-shape__text:has-text(/Mix/i))
+! https://www.reddit.com/r/uBlockOrigin/comments/lelvy6/comment/gmfozuq/
+! YT Home - Hide Mixes
+youtube.com##ytd-rich-item-renderer:has([href*="start_radio=1"])
 
-! Fallback: target badge elements and propagate upward to the rich item container
-youtube.com##yt-thumbnail-badge-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
-youtube.com##yt-badge-shape:has(.yt-badge-shape__text:has-text(/Mix/i)):upward(ytd-rich-item-renderer)
+! YT Sidebar - Hide Mixes
+youtube.com##ytd-compact-radio-renderer, :is(#related yt-lockup-view-model,ytd-compact-video-renderer):has([href*="&start_radio=1"])
 
-! Catch lockups and secondary results where the title or link implies a Mix
-youtube.com##ytd-watch-next-secondary-results-renderer yt-lockup-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
-youtube.com##yt-lockup-view-model:has-text(/Mix/i):upward(ytd-rich-item-renderer)
+! YT Search- Hide Mixes
+youtube.com##ytd-radio-renderer, :is(ytd-search yt-lockup-view-model,ytd-video-renderer[is-search]):has([href*="&start_radio=1"][aria-label])
 
-! Aggressive: remove mix playlists by URL (removes the containing card)
-youtube.com##a[href*="list=RD"]:upward(ytd-rich-item-renderer)
-
-! Also remove any rich item whose anchor contains a mix playlist reference
-youtube.com##ytd-rich-item-renderer:has(a[href*="list=RD"])
-
-! Detect mixes by radio/start params in the link (example seen in your DOM)
-! Some Mix cards don't show a "Mix" badge text but include `start_radio` in the URL.
-youtube.com##a[href*="start_radio="]:upward(ytd-rich-item-renderer)
-youtube.com##ytd-rich-item-renderer:has(a[href*="start_radio="])
-
-! Extra fallbacks for alternative container types used in sidebars / compact layouts
-youtube.com##a[href*="list=RD"]:upward(yt-lockup-view-model)
-youtube.com##a[href*="list=RD"]:upward(ytd-compact-video-renderer)
-youtube.com##a[href*="start_radio="]:upward(yt-lockup-view-model)
+! YT Player - Hide Mixes in Video End Cards
+youtube.com##.ytp-videowall-still[data-is-mix="true"]
 
 !  End of filters for YouTube
 ! ====================================================================================
