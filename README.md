@@ -2,11 +2,11 @@
 
 Filters that removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
 
-(Tested using uBlock Origin)
+(Tested using [uBlock Origin](https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo))
 
 ## Currently supports
 
-YouTube, TikTok, Reddit +(old.reddit) and ChatGPT.
+YouTube, TikTok, Reddit +(old.reddit), ChatGPT and Pinterest.
 
 ## Install
 

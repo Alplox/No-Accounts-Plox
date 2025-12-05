@@ -1,13 +1,13 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2025.12.04
-! Last modified: 2025-12-04
+! Version: 2025.12.05
+! Last modified: 2025-12-05
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
 ! Issues: https://github.com/alplox/No-Accounts-Plox/issues
-! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit) and ChatGPT.
+! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit), ChatGPT and Pinterest.
 ! ######################################
 
 ! ====================================================================================
@@ -78,14 +78,14 @@ youtube.com###copyright
 
 ! Video page /watch -----------------------------------------------
 ! Increase the maximum height of the video player when in fullscreen mode
-youtube.com##:fullscreen #player-full-bleed-container, :fullscreen #full-bleed-container { max-height: calc(100vh) !important; }
+youtube.com##:fullscreen #player-full-bleed-container, :fullscreen #full-bleed-container:style(max-height: calc(100vh) !important;)
 
 ! Increase the maximum height of the video player when in theater mode to use full viewport height minus top bar
-youtube.com##:has([is-theater-mode]) #player-full-bleed-container, :has([is-theater-mode]) #full-bleed-container { max-height: calc(100vh - 52px) !important; height: 100vh !important; }
+youtube.com##:has([is-theater-mode]) #player-full-bleed-container, :has([is-theater-mode]) #full-bleed-container:style(max-height: calc(100vh - 52px) !important; height: 100vh !important;)
 
 ! Disable clicks on segmented Like/Dislike buttons, keep icons visible, avoid opening YouTube "Like this video?" sign-in modal
-youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-start { pointer-events: none !important; opacity: 0.3 !important; }
-youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-end { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-start:style(pointer-events: none !important; opacity: 0.3 !important)
+youtube.com##segmented-like-dislike-button-view-model button.yt-spec-button-shape-next--segmented-end:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! "Download", "Save to playlist", "Become a sponsor", "Subscribe" and "Join" buttons that require login
 ! "Download" button
@@ -135,6 +135,13 @@ youtube.com##ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_P
 ! Hide the "try youtube kids" banner besides the video description
 youtube.com##div#teaser-carousel
 
+! Hides the YouTube "Experiencing interruptions?" toast at the bottom of the page
+youtube.com##a[href*="check_ad_blockers"][target="_blank"]
+! https://www.reddit.com/r/uBlockOrigin/comments/vjem6e/blocking_the_experiencing_interruptions_message/
+youtube.com###toast:has(#text-container:has-text(/experiencing interruptions/i))
+youtube.com###toast:has(#text-container:has-text(/experimentas interrupciones/i))
+youtube.com###toast:has(#text-container:has-text(/¿Experimentas interrupciones? Descubre por qué/i))
+
 ! Recommendations section -----------------------------------------------
 ! Hides the YouTube "Download" menu item (language-agnostic)
 youtube.com##yt-download-list-item-view-model
@@ -145,13 +152,13 @@ youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnai
 
 ! Shorts page /shorts -----------------------------------------------
 ! Disable interactions with Like button on Shorts, keep icons visible
-youtube.com##like-button-view-model button { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##like-button-view-model button:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Disable interactions with Dislike button on Shorts, keep icons visible
-youtube.com##dislike-button-view-model button { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##dislike-button-view-model button:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Disable interactions with Remix button on Shorts, keep icons visible
-youtube.com##button-view-model[aria-label="Remix"] button { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##button-view-model[aria-label="Remix"] button:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Channel page /channel/-----------------------------------------------
 ! Hides the menu on channel video thumbnails that contains "Save to playlist", "Download" and other options that require login
@@ -164,11 +171,11 @@ youtube.com##ytd-button-renderer:has-text(/Join/i)
 youtube.com##ytd-recognition-shelf-renderer
 
 ! Disable clicks on like/dislike buttons in posts, keep icons visible
-youtube.com##ytd-comment-action-buttons-renderer #like-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
-youtube.com##ytd-comment-action-buttons-renderer #dislike-button yt-button-shape > a { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##ytd-comment-action-buttons-renderer #like-button yt-button-shape > a:style(pointer-events: none !important; opacity: 0.3 !important)
+youtube.com##ytd-comment-action-buttons-renderer #dislike-button yt-button-shape > a:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Disable clicks on polls in posts, keeping options visible
-youtube.com##a#sign-in[role="option"].ytd-backstage-poll-renderer { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##a#sign-in[role="option"].ytd-backstage-poll-renderer:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Hide the top-right menu button (three-dots) in video posts
 youtube.com###title-wrapper > div#menu
@@ -204,8 +211,8 @@ youtube.com##ytd-comment-simplebox-renderer
 youtube.com##ytd-button-renderer#reply-button-end
 
 ! Disable clicks on like/dislike buttons, keep icons visible
-youtube.com##ytd-toggle-button-renderer#like-button > yt-button-shape > button { pointer-events: none !important; opacity: 0.3 !important; }
-youtube.com##ytd-toggle-button-renderer#dislike-button > yt-button-shape > button { pointer-events: none !important; opacity: 0.3 !important; }
+youtube.com##ytd-toggle-button-renderer#like-button > yt-button-shape > button:style(pointer-events: none !important; opacity: 0.3 !important)
+youtube.com##ytd-toggle-button-renderer#dislike-button > yt-button-shape > button:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Hide Mixes (Optional, just personal preference) -----------------------------------------------
 ! Remove the entire recommendation card when it is a Mix (badge or title)
@@ -257,17 +264,17 @@ tiktok.com##div[class^="css-"][class*="--DivModalContainer"]
 tiktok.com##div#login-modal
 
 ! Allow scrolling when body is hidden (to bypass login in scroll lock)
-tiktok.com##body.hidden { overflow: initial !important; display: initial !imimportant; }
+tiktok.com##body.hidden:style(overflow: initial !important; display: initial !imimportant;)
 
 ! Restore pointer events to "non-clickable" links, like recommendations
-tiktok.com##a[class^="css-"][class*="--LinkNonClickable"] { pointer-events: auto !important; }
+tiktok.com##a[class^="css-"][class*="--LinkNonClickable"]:style(pointer-events: auto !important;)
 
 ! Hide top-right action bar with "Get Coins", "Get App" and "Login in" buttons
 tiktok.com##div#top-right-action-bar
 
 ! Profile page -----------------------------------------------
 ! Set maximum width of user profile links to none, so the full link is visible
-tiktok.com##div[class*="--DivShareLinks"] a[data-e2e="user-link"] { max-width: none !important; }
+tiktok.com##div[class*="--DivShareLinks"] a[data-e2e="user-link"]:style(max-width: none !important;)
 
 ! Hide the "Follow", "Message", "Share", "More", etc. block
 tiktok.com##div[class*="--DivButtonPanelWrapper"]
@@ -359,7 +366,7 @@ reddit.com##div.legal-links
 reddit.com##a[href="https://redditinc.com"]
 
 ! Remove the blur filter from post thumbnails NSFW overlay
-reddit.com##faceplate-img.thumbnail-blur { filter: none !important; }
+reddit.com##faceplate-img.thumbnail-blur:style(filter: none !important;)
 
 ! Navigation bar -----------------------------------------------
 ! Hide login element
@@ -415,8 +422,8 @@ reddit.com##shreddit-post-overflow-menu
 reddit.com##faceplate-textarea-input
 
 ! Disable interaction with Reddit upvote/downvote buttons while keeping them visible, for both posts and comments
-reddit.com##button[upvote] { pointer-events: none !important; opacity: 0.3 !important; }
-reddit.com##button[downvote] { pointer-events: none !important; opacity: 0.3 !important; }
+reddit.com##button[upvote]:style(pointer-events: none !important; opacity: 0.3 !important)
+reddit.com##button[downvote]:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Hide reply button inside Reddit comment action row
 reddit.com##shreddit-comment-action-row faceplate-tracker[slot="comment-reply"]
@@ -462,8 +469,8 @@ old.reddit.com##.infobar.listingsignupbar
 old.reddit.com##div#header-bottom-right
 
 ! Disable interaction with Reddit upvote/downvote buttons while keeping them visible, for both posts and comments
-old.reddit.com##div.midcol.unvoted .arrow.up.login-required.access-required { pointer-events: none !important; opacity: 0.3 !important; }
-old.reddit.com##div.midcol.unvoted .arrow.down.login-required.access-required { pointer-events: none !important; opacity: 0.3 !important; }
+old.reddit.com##div.midcol.unvoted .arrow.up.login-required.access-required:style(pointer-events: none !important; opacity: 0.3 !important)
+old.reddit.com##div.midcol.unvoted .arrow.down.login-required.access-required:style(pointer-events: none !important; opacity: 0.3 !important)
 
 ! Hide the entire footer block (about, help center, apps & tools, reddit premium)
 old.reddit.com##div.footer-parent
@@ -565,4 +572,119 @@ chatgpt.com##div[role="menuitem"] span.text-token-text-secondary:upward(div[role
 chatgpt.com##div[data-radix-popper-content-wrapper] div[data-state="open"] div.text-token-text-primary:upward(div[data-radix-popper-content-wrapper])
 
 !  End of filters for ChatGPT
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: Pinterest
+! ██████  ██ ███    ██ ████████ ███████ ██████  ███████ ███████ ████████ 
+! ██   ██ ██ ████   ██    ██    ██      ██   ██ ██      ██         ██    
+! ██████  ██ ██ ██  ██    ██    █████   ██████  █████   ███████    ██    
+! ██      ██ ██  ██ ██    ██    ██      ██   ██ ██           ██    ██    
+! ██      ██ ██   ████    ██    ███████ ██   ██ ███████ ███████    ██    
+
+! Blocks Pinterest's full-page login/signup modal and restores scrolling
+pinterest.*##div[data-test-id="fullPageSignupModal"]
+pinterest.*##body:style(overflow: auto !important)
+
+! Blocks Pinterest's bottom-right login/signup popup
+pinterest.*##div[data-test-id="bottom-right-upsell"]
+
+! Blocks Google's credential picker popup in top-right corner
+pinterest.*##div#credential_picker_container
+
+! Landing page -----------------------------------------------
+! Block "Information" button in the header
+pinterest.*##div[data-test-id="header-about-button"]
+
+! Block "Companies" button in the header
+pinterest.*##div[data-test-id="header-business-button"]
+
+! Block "Create" button in the header
+pinterest.*##div[data-test-id="header-create-button"]
+
+! Block "What's New" button in the header
+pinterest.*##div[data-test-id="header-blog-button"]
+
+! Block "Login" button in the header
+pinterest.*##div[data-test-id="simple-login-button"]
+
+! Block "Register" button in the header
+pinterest.*##div[data-test-id="simple-signup-button"]
+
+! Block the entire signup modal
+pinterest.*##div[data-test-id="signup-default-modal"]
+! Block the "Continue" button in the signup form
+pinterest.*##div[data-test-id="registerFormSubmitButton"]
+! Block the Google signup button
+pinterest.*##div[data-test-id="google-connect-button"]
+! Block the birthdate input field
+pinterest.*##div[data-test-id="signup-birthdate-field"]
+! Block the "Create a business account" button at the bottom
+pinterest.*##div[data-test-id="create-business-account-button"]
+! Block the login toggle in the signup modal
+pinterest.*##div[data-test-id="login-signup-toggle"]
+! Block terms of service and privacy links
+pinterest.*##div[data-test-id="terms-of-service"]
+! Block the signup options container (email/password form)
+pinterest.*##div[data-test-id="signup-options"]
+
+! Hide the floating footer prompting to sign up or log in
+pinterest.*##nav[data-test-id="floating-footer-container"]
+
+! Search page -----------------------------------------------
+! Hides the "More actions" button (three-dots) on pins during search browsing
+pinterest.*##div[data-test-id="overflow-menu-button"]
+
+! Post page -----------------------------------------------
+! Hide the Login button on the right side of the navigation bar
+pinterest.*##div[data-test-id="login-button"]
+
+! Hide the Sign Up button on the right side of the navigation bar
+pinterest.*##div[data-test-id="signup-button"]
+
+! Hide the Settings button on the right side of the navigation bar
+pinterest.*##div[data-test-id="setting-button"]
+
+! Blocks the comment composer on Pinterest
+pinterest.*##div[data-test-id="unauth-comment-composer"]
+
+! Disables intereaction on the "React to pin" button
+pinterest.*##button[data-test-id="react-button"]:style(pointer-events: none !important; opacity: 0.3 !important)
+
+! Hides the "Download image" button
+pinterest.*##button[data-test-id="pin-action-dropdown-download"]
+
+! Hides the "Save image" button
+pinterest.*##button[data-test-id="pin-action-dropdown-save"]
+
+! Hides the main "Save" button on pins
+pinterest.*##div[data-test-id="standard-save-button"]
+
+! Hides the "More actions" button (three-dots) on pins during "Visually similar results" browsing
+pinterest.*##div[data-test-id="MobileFeed"] button[data-test-id="more-actions-button"]
+
+! Hides the "Save" and "Download" buttons in the desktop menu (right-click on pins), leaving only the "Open link" button
+pinterest.*##div[data-test-id="desktop-context-menu"] div[data-test-id="more-options-save"],
+pinterest.*##div[data-test-id="desktop-context-menu"] div[data-test-id="more-options-download"]
+
+! Hides the "Download" button while hovering over pins
+pinterest.*##button[aria-label="Descargar"]
+pinterest.*##button[aria-label="Download"]
+
+! Profile page -----------------------------------------------
+! Disable interection on the followers count on a profile
+pinterest.*##div[data-test-id="profile-followers-count"]:style(pointer-events: none !important; opacity: 0.3 !important)
+
+! Disable interection on the following count on a profile
+pinterest.*##div[data-test-id="profile-following-count"]:style(pointer-events: none !important; opacity: 0.3 !important)
+
+! Hides the "Follow" button on user profiles
+pinterest.*##div[data-test-id="board-follow-button"]
+
+! Hide the "Follow" button on a user profile information popup
+pinterest.*##div[data-test-id="user-follow-button"]
+
+!  End of filters for Pinterest
 ! ====================================================================================
