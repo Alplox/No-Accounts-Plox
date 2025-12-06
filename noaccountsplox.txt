@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2025.12.05
-! Last modified: 2025-12-05
+! Version: 2025.12.06
+! Last modified: 2025-12-06
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -31,6 +31,9 @@ youtube.com###sections.ytd-multi-page-menu-renderer > .ytd-multi-page-menu-rende
 youtube.com###sections.ytd-multi-page-menu-renderer > .ytd-multi-page-menu-renderer:not(ytd-comment-video-thumbnail-header-renderer):style(padding: 8px 0 0 0 !important;)
 ! Removes padding on the last menu item in the top-right menu
 youtube.com##ytd-multi-page-menu-renderer #sections.ytd-multi-page-menu-renderer > yt-multi-page-menu-section-renderer:last-child:style(padding: 0 !important;)
+! always show normal YouTube logo, never that distracting doodleyoodle https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae
+youtube.com##ytd-topbar-logo-renderer > a > ytd-yoodle-renderer
+youtube.com##ytd-topbar-logo-renderer > a > div:remove-attr(hidden)
 
 ! Homepage -----------------------------------------------
 ! Hides the "Save to playlist" option inside YouTube’s context menu (does not hide the menu trigger/Three-dots button)
@@ -43,6 +46,12 @@ youtube.com##yt-list-item-view-model:has-text(/Enviar comentarios/i)
 
 ! Hides YouTube's homepage feedback checkbox survey popup
 youtube.com##ytd-checkbox-survey-renderer
+
+! hide "How is this recommendation?" tooltip below videos on Home Page https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae
+youtube.com##[page-subtype="home"] ytd-rich-item-renderer #attached-survey
+
+! hide "how did you like this video" survey crap on Home Page
+youtube.com##[page-subtype="home"] ytd-rich-section-renderer:has(ytd-inline-survey-renderer)
 
 ! Search page /results -----------------------------------------------
 ! YT Search - keep only videos (no shorts), channels and playlists
@@ -130,6 +139,25 @@ youtube.com##yt-button-renderer a[href*="ServiceLogin"]:has(span:contains("Inici
 ! Hide every anchor link inside yt-button-shape that leads to Google login page, can hide like/dislike buttons too
 !youtube.com##yt-button-shape a[href*="ServiceLogin"]
 
+! Hide the "try youtube kids" banner besides the video description
+youtube.com##div#teaser-carousel
+
+! Hides the YouTube "Experiencing interruptions?" toast at the bottom of the page
+youtube.com##a[href*="check_ad_blockers"][target="_blank"]
+! https://old.reddit.com/r/Adblock/comments/1lgb770/any_fix_for_experiencing_interruptions_on_youtube/mz7299c/
+youtube.com##tp-yt-paper-toast#toast:has(yt-button-renderer#action-button a[href*=blocker])
+! based on https://www.reddit.com/r/uBlockOrigin/comments/vjem6e/blocking_the_experiencing_interruptions_message/
+! https://github.com/gorhill/uBlock/wiki/Procedural-cosmetic-filters#subjecthas-textneedle
+youtube.com###div#text-container.yt-notification-action-renderer:has-text(/experiencing interruptions/i)
+youtube.com###div#text-container.yt-notification-action-renderer:has-text(/El video se interrumpe/i)
+youtube.com###div#text-container.yt-notification-action-renderer:has-text(/¿Experimentas interrupciones? Descubre por qué/i)
+! hide that f*cking "Experiencing interruptions?" toast message because of AdBlock https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae
+youtube.com##tp-yt-paper-toast#toast:has(yt-button-renderer#action-button a[href*=blocker])
+
+! hide "1080p Premium HD" (which is nothing more than an ad for premium) in video quality settings menu https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae
+youtube.com##.ytp-quality-menu .ytp-menuitem:has(.ytp-premium-label)
+
+! Livestreams -----------------------------------------------
 ! Hide polls on top of chat in live streams
 youtube.com##ytd-backstage-poll-renderer
 youtube.com##yt-live-chat-poll-renderer
@@ -140,18 +168,11 @@ youtube.com##yt-live-chat-viewer-engagement-message-renderer
 ! Hide YouTube live streams chat banners like "Chat is paused", "You are viewing a replay", "This chat is for subscribers only", etc.
 youtube.com##yt-live-chat-banner-manager
 
+! Hide Live Chat AI Summary https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae?permalink_comment_id=5852770#gistcomment-5852770
+youtube.com###live-chat-banner > .yt-live-chat-banner-manager.style-scope:has-text(/Chat summary/i)
+
 ! Hides the footer login prompt in the YouTube live chat engagement panels "Log in to chat. All messages you send will be public"
 youtube.com##ytd-engagement-panel-section-list-renderer[visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED"] #footer
-
-! Hide the "try youtube kids" banner besides the video description
-youtube.com##div#teaser-carousel
-
-! Hides the YouTube "Experiencing interruptions?" toast at the bottom of the page
-youtube.com##a[href*="check_ad_blockers"][target="_blank"]
-! https://www.reddit.com/r/uBlockOrigin/comments/vjem6e/blocking_the_experiencing_interruptions_message/
-youtube.com###toast:has(#text-container:has-text(/experiencing interruptions/i))
-youtube.com###toast:has(#text-container:has-text(/experimentas interrupciones/i))
-youtube.com###toast:has(#text-container:has-text(/¿Experimentas interrupciones? Descubre por qué/i))
 
 ! Recommendations section -----------------------------------------------
 ! Hides the YouTube "Download" menu item (language-agnostic)
@@ -163,6 +184,9 @@ youtube.com##yt-thumbnail-hover-overlay-toggle-actions-view-model div.ytThumbnai
 
 ! Hide Movie/Film recommendations https://www.reddit.com/r/uBlockOrigin/comments/lelvy6/comment/h76l9hg/
 youtube.com##ytd-compact-movie-renderer
+
+! hide donation box for fundraiser videos https://gist.github.com/tadwohlrapp/722bbe97cb20bb34da8df73675415cae
+youtube.com###secondary #donation-shelf
 
 ! Shorts page /shorts -----------------------------------------------
 ! Disable interactions with Like button on Shorts, keep icons visible
