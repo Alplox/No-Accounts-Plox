@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2026.01.16
-! Last modified: 2026-01-16
+! Version: 2026.04.09
+! Last modified: 2026-04-09
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -572,6 +572,9 @@ old.reddit.com##span.subscribe-button
 ! Hide sign up/login in modals
 chatgpt.com##[data-testid="modal-no-auth-rate-limit"]
 
+! Block Google One Tap popup
+chatgpt.com###google-one-tap-anchor
+
 ! Hide gpt-5 upsell modal
 chatgpt.com##[data-testid="modal-no-auth-gpt5-upsell"]
 
@@ -616,6 +619,25 @@ chatgpt.com##div[role="menuitem"] span.text-token-text-secondary:upward(div[role
 
 ! Hide the "Login to upload files" tooltip
 chatgpt.com##div[data-radix-popper-content-wrapper] div[data-state="open"] div.text-token-text-primary:upward(div[data-radix-popper-content-wrapper])
+
+! Block floating promotional banner with login + upgrade CTA buttons abobe message box
+chatgpt.com##aside:has(button.btn-primary):has(button.btn-secondary)
+
+! Sidebar -----------------------------------------------
+! Block "Images" sidebar menu item
+chatgpt.com##a.group.__menu-item[data-testid="sidebar-item-library"]
+
+! Block "Apps" sidebar menu item 
+chatgpt.com##a.group.__menu-item[data-testid="apps-button"]
+
+! Block sidebar menu item like "search chat", "investigate" and "health"
+chatgpt.com##div.__menu-item[data-sidebar-keep-open="true"]
+
+! Block the bottom sticky login panel in the sidebar
+chatgpt.com##.sticky.bottom-0.p-5.border-token-border-heavy
+
+! Block chat menu items disabled for non-logged-in users
+chatgpt.com##div[role="group"]:has(div.__menu-item[data-disabled="true"][data-radix-collection-item])
 
 !  End of filters for ChatGPT
 ! ====================================================================================
