@@ -7,7 +7,7 @@
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
 ! Issues: https://github.com/alplox/No-Accounts-Plox/issues
-! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit), ChatGPT and Pinterest.
+! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit), ChatGPT, Gemini and Pinterest.
 ! ######################################
 
 ! ====================================================================================
@@ -598,6 +598,9 @@ chatgpt.com##div.text-token-text-secondary span a[href="https://openai.com/terms
 ! Hide "You're now using our basic model" popup
 chatgpt.com##aside.rounded-3xl.border.py-4.ps-5.pe-3.shadow-xxs.bg-token-main-surface-primary
 
+! Removes the initial assistant welcome message container
+chatgpt.com##div[data-splash-headline-option]
+
 ! Navigation bar -----------------------------------------------
 ! Hide model switcher dropdown button
 chatgpt.com##button[data-testid="model-switcher-dropdown-button"]
@@ -643,6 +646,72 @@ chatgpt.com##.sticky.bottom-0.p-5.border-token-border-heavy
 chatgpt.com##div[role="group"]:has(div.__menu-item[data-disabled="true"][data-radix-collection-item])
 
 !  End of filters for ChatGPT
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: Gemini
+!  ██████  ███████ ███    ███ ██ ███    ██ ██ 
+! ██       ██      ████  ████ ██ ████   ██ ██ 
+! ██   ███ █████   ██ ████ ██ ██ ██ ██  ██ ██ 
+! ██    ██ ██      ██  ██  ██ ██ ██  ██ ██ ██ 
+!  ██████  ███████ ██      ██ ██ ██   ████ ██ 
+                                            
+! Navigation bar -----------------------------------------------
+! Hides right-panel Gemini links
+gemini.google.com##div.right-section a[href*="gemini.google/about"]
+gemini.google.com##div.right-section a[href*="gemini.google.com/app/download"]
+gemini.google.com##div.right-section a[href*="one.google.com/ai"]
+gemini.google.com##div.right-section a[href*="workspace.google.com/solutions/ai"]
+! Hides the top-right Google/Gemini sign-in
+gemini.google.com##div.boqOnegoogleliteOgbOneGoogleBar a[href*="accounts.google.com/ServiceLogin"]
+
+! Sidebar -----------------------------------------------
+! Hides the signed-out chat history/login panel in Gemini sidebar
+gemini.google.com##div.chat-history conversations-list-signed-out
+
+! Hides the "Import memory to Gemini" menu entry div.nested-menu-item-wrapper:has()
+gemini.google.com##a[data-test-id="import-hub-settings-button"]
+
+! Hides the "View subscriptions" menu entry in Gemini settings/menu
+gemini.google.com##a[data-test-id="desktop-view-subscriptions-button"]
+
+! Hides the NotebookLM menu entry in Gemini
+gemini.google.com##a[data-test-id="notebook-lm-button"]
+
+! Hides the "Send feedback" menu button in Gemini
+gemini.google.com##button[data-test-id="send-feedback-button"]
+
+! Hides the Help submenu button in Gemini menus
+gemini.google.com##button[data-test-id="help-button"]
+
+! Message input area -----------------------------------------------
+! Removes the initial assistant welcome message container
+gemini.google.com##assistant-messages-primary
+
+! Hides the sign-in link inside the "new chat" warning dialog
+gemini.google.com##reset-chat-signed-out-dialog a[data-test-id="sign-in-link"]
+
+! Hides the Gemini file upload/open attachment menu button
+gemini.google.com##div.file-uploader button[aria-controls="upload-file-menu"]
+
+! Hides the Gemini "Tools" drawer/button near the prompt area
+gemini.google.com##toolbox-drawer
+
+! Removes the Gemini "sign in" upgrade/login button block
+gemini.google.com##button[data-test-id="bard-sign-in-button"]
+
+! Hides the Gemini model picker/switcher button (Flash, Pro, etc.)
+gemini.google.com##button[data-test-id="bard-mode-menu-button"]
+
+! Hides the Gemini AI disclaimer/footer notice block
+gemini.google.com##hallucination-disclaimer
+
+! Hides the Gemini sign-in nudge/promo banner
+gemini.google.com##sign-in-nudge
+
+!  End of filters for Gemini
 ! ====================================================================================
 
 
