@@ -1,13 +1,13 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2026.05.20
-! Last modified: 2026-05-20
+! Version: 2026.05.21
+! Last modified: 2026-05-21
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
 ! Issues: https://github.com/alplox/No-Accounts-Plox/issues
-! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit), ChatGPT, Gemini and Pinterest.
+! Notes: Currently supports YouTube, TikTok, Reddit +(old.reddit), ChatGPT, Gemini, Pinterest, Ciperchile, Biobiochile.
 ! ######################################
 
 ! ====================================================================================
@@ -827,4 +827,66 @@ pinterest.*##div[data-test-id="board-follow-button"]
 pinterest.*##div[data-test-id="user-follow-button"]
 
 !  End of filters for Pinterest
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: Ciperchile
+!  ██████ ██ ██████  ███████ ██████   ██████ ██   ██ ██ ██      ███████ 
+! ██      ██ ██   ██ ██      ██   ██ ██      ██   ██ ██ ██      ██      
+! ██      ██ ██████  █████   ██████  ██      ███████ ██ ██      █████   
+! ██      ██ ██      ██      ██   ██ ██      ██   ██ ██ ██      ██      
+!  ██████ ██ ██      ███████ ██   ██  ██████ ██   ██ ██ ███████ ███████ 
+                                                                   
+! Removes the "Hazte socio" footer popup/banner
+ciperchile.cl##div.modal-footer-ciper
+ciperchile.cl###mymodal-footer
+
+! Navigation bar -----------------------------------------------
+! Removes the "Hazte socio" alert and buttons in the top navigation bar
+ciperchile.cl##.alert-ciper
+ciperchile.cl###btnHazteSocioCabecera
+ciperchile.cl###btn-ciper-socios-head
+
+! Removes the comment form that prompts users to log in to comment
+ciperchile.cl##form#comment_form                                                                  
+
+!  End of filters for Ciperchile
+! ====================================================================================
+
+
+
+! ====================================================================================
+! MARK: Biobiochile
+! ██████  ██  ██████  ██████  ██  ██████   ██████ ██   ██ ██ ██      ███████ 
+! ██   ██ ██ ██    ██ ██   ██ ██ ██    ██ ██      ██   ██ ██ ██      ██      
+! ██████  ██ ██    ██ ██████  ██ ██    ██ ██      ███████ ██ ██      █████   
+! ██   ██ ██ ██    ██ ██   ██ ██ ██    ██ ██      ██   ██ ██ ██      ██      
+! ██████  ██  ██████  ██████  ██  ██████   ██████ ██   ██ ██ ███████ ███████ 
+                                                                         
+! Hides the login modal
+biobiochile.cl##.loginModal
+biobiochile.cl##div[data-v-04b55e92].loginModal
+
+! Navigation bar -----------------------------------------------
+! Button “Newsletters Bío Bío”
+biobiochile.cl##a[href="/newsletter"]
+biobiochile.cl###menu-usuario
+
+! Post page -----------------------------------------------
+! Removes the "leer tambien" suggestions in the middle of articles
+biobiochile.cl##div.lee-tambien-bbcl
+
+! Removes "¿encontraste un error? avísanos" button at the end of articles
+biobiochile.cl##.openFormCorreccion
+
+! Disables infinite scrolling
+biobiochile.cl##+js(aeld, scroll)
+biobiochile.cl##+js(set, history.replaceState, noopFunc)
+
+! Remove the "Suscríbete a nuestros Nwsletters" aside
+biobiochile.cl##a[href*="/newsletter/"]
+
+!  End of filters for biobiochile
 ! ====================================================================================

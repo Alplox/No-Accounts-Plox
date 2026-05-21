@@ -1,6 +1,6 @@
 # No Accounts Plox
 
-Remove annoying login walls, sign-up popups, banners, and “open in app” prompts so you can browse peacefully without creating an account.
+Remove annoying login walls, sign-up popups, banners, and “open in app” prompts so you can browse peacefully without creating/using an account.
 
 Designed for use with [uBlock Origin](https://github.com/gorhill/uBlock?tab=readme-ov-file#ublock-origin-ubo).
 
@@ -25,6 +25,7 @@ Designed for use with [uBlock Origin](https://github.com/gorhill/uBlock?tab=read
   - [ChatGPT](#chatgpt)
   - [Gemini](#gemini)
   - [Pinterest](#pinterest)
+  - [Ciperchile](#ciperchile)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -46,6 +47,8 @@ Designed for use with [uBlock Origin](https://github.com/gorhill/uBlock?tab=read
 * [https://chatgpt.com](https://chatgpt.com)
 * [https://gemini.google.com](https://gemini.google.com)
 * [https://www.pinterest.com](https://www.pinterest.com)
+* [https://www.ciperchile.cl](https://www.ciperchile.cl)
+* [https://www.biobiochile.cl](https://www.biobiochile.cl)
 
 More sites may be added over time.
 
@@ -202,6 +205,21 @@ Tested with:
     <td align="center">
       <strong>After</strong><br>
       <img src="./images/pinterest-after.png" width="400"/>
+    </td>
+  </tr>
+</table>
+
+### Ciperchile
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Before</strong><br>
+      <img src="./images/ciperchile-before.png" width="400"/>
+    </td>
+    <td align="center">
+      <strong>After</strong><br>
+      <img src="./images/ciperchile-after.png" width="400"/>
     </td>
   </tr>
 </table>
