@@ -1,8 +1,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2026.05.21
-! Last modified: 2026-05-21
+! Version: 2026.05.22
+! Last modified: 2026-05-22
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -812,6 +812,9 @@ pinterest.*##div[data-test-id="desktop-context-menu"] div[data-test-id="more-opt
 ! Hides the "Download" button while hovering over pins
 pinterest.*##button[aria-label="Descargar"]
 pinterest.*##button[aria-label="Download"]
+
+! Removes the "Log in to continue exploring Pinterest" overlay at the end of the page
+pinterest.com##div[style*="z-index: 4"]:has([data-test-id="LoginButtonsContainer"])
 
 ! Profile page -----------------------------------------------
 ! Disable interection on the followers count on a profile
