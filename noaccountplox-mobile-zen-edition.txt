@@ -1,0 +1,112 @@
+[uBlock Origin]
+! ######################################
+! Title: No Accounts Plox [Mobile (doomscrolling) Zen Edition]
+! Description: 
+!   A custom filter list for uBlock Origin designed to enhance the mobile web experience on platforms like YouTube and TikTok by hiding account-related UI elements, 
+!   such as sign-up prompts, follow buttons, and other distractions, allowing users to focus on content without being pressured to create an account or engage with social features.
+!   -DOOMSCROLL WITHOUT AN APP OR ACCOUNT-
+!
+! Version: 2026.05.25
+! Expires: 7 days
+!
+! Homepage: https://github.com/alplox/No-Accounts-Plox
+!
+! Notes: 
+!   This list is for personal use (for my grandpa) and may contain filters that are not suitable for all users. 
+!   Use at your own discretion and consider contributing to the project if you find it useful!
+!   
+! Requirements: 
+!   Allow custom filters requiring trust [Settings → Filter lists → Enable "Allow custom filters requiring trust"]
+! ######################################
+
+! ====================================================================================
+! MARK: Youtube mobile
+! ██    ██  ██████  ██    ██ ████████ ██    ██ ██████  ███████ 
+!  ██  ██  ██    ██ ██    ██    ██    ██    ██ ██   ██ ██      
+!   ████   ██    ██ ██    ██    ██    ██    ██ ██████  █████   
+!    ██    ██    ██ ██    ██    ██    ██    ██ ██   ██ ██      
+!    ██     ██████   ██████     ██     ██████  ██████  ███████ 
+
+! Shorts -----------------------------------------------
+! Hides the YouTube Shorts mobile top header/search bar (back button, search field, and voice search controls)
+m.youtube.com##ytm-mobile-topbar-renderer#header-bar.shorts-topbar
+
+! Hides the YouTube Shorts action sidebar
+m.youtube.com##div.reel-player-overlay-actions
+
+! Hides the YouTube Shorts channel bar (profile avatar, channel name, and subscribe button)
+m.youtube.com##yt-reel-channel-bar-view-model.ytReelChannelBarViewModelHost
+
+! Hides only the related video/link card shown inside YouTube Shorts
+m.youtube.com##yt-reel-multi-format-link-view-model.ytReelMultiFormatLinkViewModelHost
+
+!  End of filters for YouTube
+! ====================================================================================
+
+
+! ====================================================================================
+! MARK: TikTok mobile
+! ████████ ██ ██   ██ ████████  ██████  ██   ██ 
+!    ██    ██ ██  ██     ██    ██    ██ ██  ██  
+!    ██    ██ █████      ██    ██    ██ █████   
+!    ██    ██ ██  ██     ██    ██    ██ ██  ██  
+!    ██    ██ ██   ██    ██     ██████  ██   ██ 
+
+! Skip onelink.me tracking redirects -----------------------------------------------
+! REQUIRE: Allow custom filters requiring trust [Settings → Filter lists → Enable "Allow custom filters requiring trust"]
+! Bypasses TikTok mobile web redirect/interstitial behavior by skipping OneLink deep-link tracking URLs and opening the canonical TikTok URL directly. This can help prevent forced sign-up/app-open prompts and keep browsing the “For You” feed.
+||snssdk1233.onelink.me/bIdt*$urlskip=?canonical -uricomponent,important
+||onelink.me^$urlskip=?canonical -uricomponent,important
+! Fallback para enlaces con af_dp
+||onelink.me^$urlskip=?af_dp -uricomponent -uricomponent,important,domain=tiktok.com
+! END-REQUIRE
+
+! Hide TikTok entire right-side action column
+! Includes:
+! - Avatar/follow button
+! - Like button
+! - Comment button
+! - Share button
+! - Music/spinning album button
+tiktok.com##div[class*="DivRightAreaBox"]
+
+! Hide TikTok video caption/description overlay
+! Includes:
+! - Username
+! - Caption text
+! - Hashtags
+! - "more" expand button
+! - Music title section
+!tiktok.com##div[class*="DivVideoCaption"]
+! Disable clicks/interactions on TikTok video caption overlay
+tiktok.com##div[class*="DivVideoCaption"]:style(pointer-events: none !important;)
+
+! Hide TikTok top header bar
+! Includes:
+! - Hamburger/menu button
+! - "Open App" button
+! - Search button
+tiktok.com##div[class*="DivHeaderContainer"]
+! Hide TikTok hamburger/menu button in the top navigation bar
+! tiktok.com##div[data-e2e="view-nav-arrow"]
+! Hide TikTok header hamburger container (Backup)
+! tiktok.com##div[class*="DivHamburgerContainer"]
+! Hide TikTok "Open App" button in the top header
+tiktok.com##button[class*="ButtonCTAOpenApp"]
+
+! Bottom bar -----------------------------------------------
+! Remove TikTok discover tab container
+tiktok.com##div[class*="DivTabContainer"]:has(a[data-e2e="discover-icon"])
+! Hide TikTok Upload button
+tiktok.com##div[class*="matrix-smart-wrapper"]:has(div[data-e2e="open-titok-icon"])
+! Hide TikTok inbox/message tab button in bottom navigation
+tiktok.com##div[class*="DivTabContainer"]:has(a[data-e2e="dm-icon"])
+! Remove TikTok profile tab container
+tiktok.com##div[class*="DivTabContainer"]:has(a[data-e2e="profile-icon"])
+
+! Discover Tab -----------------------------------------------
+! Hide TikTok floating "Discover more" button (just as a backup, this page is blocked above)
+tiktok.com##div[class*="DivFloatButtonWrapper"]
+
+!  End of filters for TikTok
+! ====================================================================================
