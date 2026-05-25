@@ -1,8 +1,9 @@
+[uBlock Origin]
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2026.05.22
-! Last modified: 2026-05-22
+! Version: 2026.05.25
+! Last modified: 2026-05-25
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -318,6 +319,12 @@ tiktok.com##a[class^="css-"][class*="--LinkNonClickable"]:style(pointer-events: 
 ! Hide top-right action bar with "Get Coins", "Get App" and "Login in" buttons
 tiktok.com##div#top-right-action-bar
 
+! Removes TikTok onboarding interest selection modal and prevents the forced popup overlay from appearing
+tiktok.com##div[id=":r2t:"]
+tiktok.com##div[id="tux-web-canary-0-modal-overlay"]
+tiktok.com##div[id="tux-web-canary-1-modal-overlay"]
+tiktok.com##div[data-testid="tux-web-modal"]
+
 ! Profile page -----------------------------------------------
 ! Set maximum width of user profile links to none, so the full link is visible
 tiktok.com##div[class*="--DivShareLinks"] a[data-e2e="user-link"]:style(max-width: none !important;)
@@ -356,6 +363,12 @@ tiktok.com##div[class*="--DivCommentBarContainer"]
 
 ! "Reply" button in video comments
 tiktok.com##span[data-e2e="comment-reply-1"]
+tiktok.com##div.tux-button__text-container-oMVxoQ:upward(button)
+tiktok.com##p[data-e2e^="comment-reply-"]
+
+! Disable the "like" button clicks on video comments, but keep the icons visible, to avoid opening TikTok "Log in to like comments" modal
+tiktok.com##div.css-1ver4rv-7937d88b--DivLikeContainer.e16vxroe0:style(pointer-events: none !important;)
+tiktok.com##div[data-e2e="comment-like-icon"]:upward(div[role="button"]):style(pointer-events: none !important;)
 
 ! Follow button beside username in /video/ pages (with tabs; the one that shows "Comments" & "Creator videos")
 tiktok.com##div[data-e2e="browse-follow"]
