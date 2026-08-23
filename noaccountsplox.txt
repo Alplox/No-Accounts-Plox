@@ -2,8 +2,8 @@
 ! ######################################
 ! Title: No Accounts Plox
 ! Description: Removes banners, popups, buttons and texts that push you to log in or register so you can browse peacefully without an account.
-! Version: 2026.05.25
-! Last modified: 2026-05-25
+! Version: 2026.08.23
+! Last modified: 2026-08-23
 ! Expires: 1 day
 ! Homepage: https://github.com/alplox/No-Accounts-Plox
 ! License: MIT - https://github.com/alplox/No-Accounts-Plox/blob/master/LICENSE
@@ -582,81 +582,42 @@ old.reddit.com##span.subscribe-button
 ! ██      ██   ██ ██   ██    ██    ██    ██ ██         ██    
 !  ██████ ██   ██ ██   ██    ██     ██████  ██         ██    
                                                            
-! Hide sign up/login in modals
-chatgpt.com##[data-testid="modal-no-auth-rate-limit"]
+! 2026-08 redesign: new "wm-" UI, no data-testids, native <dialog> for auth (no more scroll lock)
+! Hide sign up/login modal (also auto-opens on rate limit / upsells)
+chatgpt.com###mobile-auth-dialog
 
 ! Block Google One Tap popup
 chatgpt.com###google-one-tap-anchor
 
-! Hide gpt-5 upsell modal
-chatgpt.com##[data-testid="modal-no-auth-gpt5-upsell"]
+! Hide every login/signup CTA (header buttons, sidebar items like search/deep research, locked composer tools) - language-agnostic, they all open mobile-auth-dialog
+chatgpt.com##button[command="show-modal"][commandfor="mobile-auth-dialog"]
 
-! Remove "data-scroll-locked" attribute dynamically to re-enable scrolling after hiding modals
-chatgpt.com##body[data-scroll-locked]:remove-attr(data-scroll-locked)
-
-! Force-enable scrolling on body and html elements
-chatgpt.com##body:style(pointer-events: auto !important; overflow-y: auto !important)
-chatgpt.com##html:style(overflow: auto !important)
-
-! Remove "data-scroll-locked" attribute from body to re-enable scrolling
-chatgpt.com##+js(remove-attr, body, data-scroll-locked)
-
-! AddEventListener Defuser to block wheel event listeners that disable scrolling
-! https://github.com/gorhill/uBlock/wiki/Resources-Library#addeventlistener-defuserjs-
-chatgpt.com##+js(aeld, wheel)
+! Hide promotional product-card popovers ("Try advanced features free" with login CTAs)
+chatgpt.com##[id$="product-card-popover"]
 
 ! Hide bottom disclaimer about terms of service and privacy policy
-chatgpt.com##div.text-token-text-secondary span a[href="https://openai.com/terms"]:upward(div.text-token-text-secondary)
+chatgpt.com##div.wm-app-privacyPositioner
 
-! Hide "You're now using our basic model" popup
-chatgpt.com##aside.rounded-3xl.border.py-4.ps-5.pe-3.shadow-xxs.bg-token-main-surface-primary
-
-! Removes the initial assistant welcome message container
-chatgpt.com##div[data-splash-headline-option]
+! Removes the initial assistant welcome heading
+chatgpt.com##h1.wm-app-landingHeading
 
 ! Navigation bar -----------------------------------------------
-! Hide model switcher dropdown button
-chatgpt.com##button[data-testid="model-switcher-dropdown-button"]
-
-! Hide "Login" button
-chatgpt.com##button[data-testid="login-button"]
-
-! Hide "Sign up" button
-chatgpt.com##button[data-testid="signup-button"]
-
-! Hide "View plans and pricing", "Help Center", "Release Notes", "Terms & Policies" menu items
-chatgpt.com##a.__menu-item[target="_blank"]
-! Hide separator lines between menu items
-chatgpt.com##div[role="separator"]
-
-! Message input area -----------------------------------------------
-! Hide the "Connect apps" and "Documents" menu item (login-gated) without relying on text or language
-chatgpt.com##div[role="menuitem"] span.text-token-text-secondary:upward(div[role="menuitem"])
-
-! Hide the "Login to upload files" tooltip
-chatgpt.com##div[data-radix-popper-content-wrapper] div[data-state="open"] div.text-token-text-primary:upward(div[data-radix-popper-content-wrapper])
-
-! Block floating promotional banner with login + upgrade CTA buttons abobe message box
-chatgpt.com##aside:has(button.btn-primary):has(button.btn-secondary)
-
-! Block "Try voice" button
-chatgpt.com##div[data-testid="composer-speech-button-container"]
+! Hide model/product switcher dropdown buttons ("What can you do?")
+chatgpt.com##button.wm-app-emptyComposerAction
 
 ! Sidebar -----------------------------------------------
 ! Block "Images" sidebar menu item
-chatgpt.com##a.group.__menu-item[data-testid="sidebar-item-library"]
+chatgpt.com##a.wm-sidebar-navigationLink[href="https://chatgpt.com/images"]
 
-! Block "Apps" sidebar menu item 
-chatgpt.com##a.group.__menu-item[data-testid="apps-button"]
+! Block "Apps/Plugins" sidebar menu item
+chatgpt.com##a.wm-sidebar-navigationLink[href="https://chatgpt.com/plugins"]
 
-! Block sidebar menu item like "search chat", "investigate" and "health"
-chatgpt.com##div.__menu-item[data-sidebar-keep-open="true"]
+! Block the sidebar login promo panel
+chatgpt.com##section.wm-sidebar-loginPanel
 
-! Block the bottom sticky login panel in the sidebar
-chatgpt.com##.sticky.bottom-0.p-5.border-token-border-heavy
-
-! Block chat menu items disabled for non-logged-in users
-chatgpt.com##div[role="group"]:has(div.__menu-item[data-disabled="true"][data-radix-collection-item])
+! Block "View plans and pricing" and "Help" sidebar menu items
+chatgpt.com##a.wm-sidebar-navigationLink[href*="openai.com/chatgpt/pricing"]
+chatgpt.com##a.wm-sidebar-navigationLink[href*="help.openai.com"]
 
 !  End of filters for ChatGPT
 ! ====================================================================================
@@ -672,20 +633,17 @@ chatgpt.com##div[role="group"]:has(div.__menu-item[data-disabled="true"][data-ra
 !  ██████  ███████ ██      ██ ██ ██   ████ ██ 
                                             
 ! Navigation bar -----------------------------------------------
-! Hides right-panel Gemini links
+! Hides right-panel/header Gemini links
 gemini.google.com##div.right-section a[href*="gemini.google/about"]
-gemini.google.com##div.right-section a[href*="gemini.google.com/app/download"]
+gemini.google.com##div.right-section a[href*="header_get_app_button"]
 gemini.google.com##div.right-section a[href*="one.google.com/ai"]
 gemini.google.com##div.right-section a[href*="workspace.google.com/solutions/ai"]
 ! Hides the top-right Google/Gemini sign-in
 gemini.google.com##div.boqOnegoogleliteOgbOneGoogleBar a[href*="accounts.google.com/ServiceLogin"]
 
 ! Sidebar -----------------------------------------------
-! Hides the signed-out chat history/login panel in Gemini sidebar
-gemini.google.com##div.chat-history conversations-list-signed-out
-
-! Hides the "Import memory to Gemini" menu entry div.nested-menu-item-wrapper:has()
-gemini.google.com##a[data-test-id="import-hub-settings-button"]
+! Hides the signed-out "Accede para guardar la actividad" prompt in the sidebar (replaces conversations-list-signed-out)
+gemini.google.com##[data-test-id="sidenav-error-message"]
 
 ! Hides the "View subscriptions" menu entry in Gemini settings/menu
 gemini.google.com##a[data-test-id="desktop-view-subscriptions-button"]
@@ -699,30 +657,31 @@ gemini.google.com##button[data-test-id="send-feedback-button"]
 ! Hides the Help submenu button in Gemini menus
 gemini.google.com##button[data-test-id="help-button"]
 
+! Hides the SynthID watermark tool menu entry in Gemini settings/menu
+gemini.google.com##button[data-test-id="watermark-button"]
+
 ! Message input area -----------------------------------------------
 ! Removes the initial assistant welcome message container
 gemini.google.com##assistant-messages-primary
 
-! Hides the sign-in link inside the "new chat" warning dialog
-gemini.google.com##reset-chat-signed-out-dialog a[data-test-id="sign-in-link"]
-
-! Hides the Gemini file upload/open attachment menu button
-gemini.google.com##div.file-uploader button[aria-controls="upload-file-menu"]
+! Hides the Gemini file upload/attachments ("Uploads and tools") menu button
+gemini.google.com##div.simplified-input-menu-container .gem-menu-button
 
 ! Hides the Gemini "Tools" drawer/button near the prompt area
 gemini.google.com##toolbox-drawer
 
-! Removes the Gemini "sign in" upgrade/login button block
-gemini.google.com##button[data-test-id="bard-sign-in-button"]
+! Hides the Gemini sign-in buttons (top-right header icon and sidebar footer)
+gemini.google.com##[data-test-id="mavatar-sign-in-icon-button"]
+gemini.google.com##[data-test-id="mavatar-sign-in-button"]
+
+! Hides remaining "sign-in" tonal buttons without a test-id
+gemini.google.com##div.signed-out-buttons
 
 ! Hides the Gemini model picker/switcher button (Flash, Pro, etc.)
 gemini.google.com##button[data-test-id="bard-mode-menu-button"]
 
 ! Hides the Gemini AI disclaimer/footer notice block
 gemini.google.com##hallucination-disclaimer
-
-! Hides the Gemini sign-in nudge/promo banner
-gemini.google.com##sign-in-nudge
 
 !  End of filters for Gemini
 ! ====================================================================================
@@ -774,14 +733,12 @@ pinterest.*##div[data-test-id="registerFormSubmitButton"]
 pinterest.*##div[data-test-id="google-connect-button"]
 ! Block the birthdate input field
 pinterest.*##div[data-test-id="signup-birthdate-field"]
-! Block the "Create a business account" button at the bottom
-pinterest.*##div[data-test-id="create-business-account-button"]
-! Block the login toggle in the signup modal
-pinterest.*##div[data-test-id="login-signup-toggle"]
+! Block the "Create a business account" button at the bottom (now rendered as a link)
+pinterest.*##[data-test-id="create-business-account-button"]
+! Block the login toggle in the signup modal (now rendered as a link)
+pinterest.*##[data-test-id="login-signup-toggle"]
 ! Block terms of service and privacy links
 pinterest.*##div[data-test-id="terms-of-service"]
-! Block the signup options container (email/password form)
-pinterest.*##div[data-test-id="signup-options"]
 
 ! Hide the floating footer prompting to sign up or log in
 pinterest.*##nav[data-test-id="floating-footer-container"]
@@ -826,8 +783,8 @@ pinterest.*##div[data-test-id="desktop-context-menu"] div[data-test-id="more-opt
 pinterest.*##button[aria-label="Descargar"]
 pinterest.*##button[aria-label="Download"]
 
-! Removes the "Log in to continue exploring Pinterest" overlay at the end of the page
-pinterest.com##div[style*="z-index: 4"]:has([data-test-id="LoginButtonsContainer"])
+! Blocks the redesigned login modal Pinterest now shows when browsing without an account
+pinterest.*##div[data-test-id="login-modal-redesign"]
 
 ! Profile page -----------------------------------------------
 ! Disable interection on the followers count on a profile
